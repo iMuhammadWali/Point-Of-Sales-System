@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pos.controller.ProductsController"
+            prefWidth="800" prefHeight="500"
+            style="-fx-background-color: #141414;">
+
+    <VBox spacing="15" layoutX="20" layoutY="20" prefWidth="760" prefHeight="460"
+          style="-fx-background-color: #fbf8ef; -fx-padding: 20; -fx-background-radius: 10;">
+
+        <Label text="Products" style="-fx-font-family: 'Urbanist'; -fx-font-size: 24px; -fx-text-fill: #141414;"/>
+
+        <HBox spacing="10">
+            <TextField fx:id="searchField" promptText="Search products..."
+                       style="-fx-font-family: 'Urbanist'; -fx-background-radius: 8px; -fx-padding: 8px;"/>
+            <Button text="Search" onAction="#handleSearch"
+                    style="-fx-font-family: 'Urbanist'; -fx-background-color: #c7ff10; -fx-text-fill: #141414; -fx-background-radius: 15px;"/>
+        </HBox>
+
+        <TableView fx:id="productTable" prefHeight="350">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Product Name" prefWidth="200"/>
+                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                <TableColumn fx:id="priceColumn" text="Price" prefWidth="100"/>
+                <TableColumn fx:id="discountColumn" text="Discount" prefWidth="100"/>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10">
+            <Button text="Edit Quantity" onAction="#handleEditQuantity"
+                    style="-fx-font-family: 'Urbanist'; -fx-background-color: #141414; -fx-text-fill: #c7ff10; -fx-background-radius: 15px;"/>
+            <Button text="Apply Discount" onAction="#handleApplyDiscount"
+                    style="-fx-font-family: 'Urbanist'; -fx-background-color: #141414; -fx-text-fill: #c7ff10; -fx-background-radius: 15px;"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500" prefWidth="800" style="-fx-background-color: #141414;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.TransactionController">
+
+    <!-- Left panel: search + discount -->
+    <VBox layoutX="20" layoutY="20" prefWidth="300" spacing="15" style="-fx-background-color: #fbf8ef; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label style="-fx-font-family: 'Urbanist'; -fx-font-size: 24px; -fx-text-fill: #141414;" text="Create Transaction" />
+
+        <Label style="-fx-font-family: 'Urbanist'; -fx-text-fill: #141414;" text="Search Item:" />
+        <TextField fx:id="searchField" promptText="Enter barcode or name" style="-fx-font-family: 'Urbanist'; -fx-background-radius: 8px; -fx-padding: 8px;" />
+
+        <HBox spacing="10">
+            <RadioButton fx:id="barcodeRadio" style="-fx-font-family: 'Urbanist';" text="Barcode" />
+            <RadioButton fx:id="nameRadio" style="-fx-font-family: 'Urbanist';" text="Name" />
+        </HBox>
+
+        <Label style="-fx-font-family: 'Urbanist'; -fx-text-fill: #141414;" text="Discount:" />
+        <TextField fx:id="discountField" promptText="Enter discount" style="-fx-font-family: 'Urbanist'; -fx-background-radius: 8px; -fx-padding: 8px;" />
+
+        <Button fx:id="addItemButton" onAction="#handleAddItem" style="-fx-font-family: 'Urbanist'; -fx-background-color: #c7ff10; -fx-text-fill: #141414; -fx-background-radius: 15px; -fx-padding: 10 20 10 20;" text="Add Item" />
+    </VBox>
+
+    <!-- Right panel: cart -->
+    <VBox layoutX="350" layoutY="20" prefHeight="460" prefWidth="420" spacing="10" style="-fx-background-color: #fbf8ef; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label style="-fx-font-family: 'Urbanist'; -fx-font-size: 20px; -fx-text-fill: #141414;" text="Cart" />
+        <ListView fx:id="cartListView" prefHeight="360" />
+        <Label fx:id="totalLabel" style="-fx-font-family: 'Urbanist'; -fx-font-size: 16px; -fx-text-fill: #141414;" text="Total: $0" />
+    </VBox>
+    <Button layoutX="20.0" layoutY="444.0" onAction="#handleEndTransaction" style="-fx-font-family: 'Urbanist'; -fx-background-color: #c7ff10; -fx-text-fill: #141414; -fx-background-radius: 15px; -fx-padding: 10 20 10 20;" text="End Transaction" />
+
+</AnchorPane>
