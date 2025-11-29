@@ -1,0 +1,36 @@
+.root {
+    -fx-background-color: #141414;
+    -fx-font-family: 'Urbanist';
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-background-color: #fbf8ef;
+    -fx-text-fill: #141414;
+    -fx-font-family: 'Urbanist';
+}
+
+.button {
+    -fx-background-color: #c7ff10;
+    -fx-text-fill: #141414;
+    -fx-font-family: 'Urbanist';
+}
+
+.table-view {
+    -fx-background-color: #fbf8ef;
+    -fx-font-family: 'Urbanist';
+    -fx-text-fill: #141414;
+}
+
+.v-box {
+    -fx-background-color: #fbf8ef;
+    -fx-font-family: 'Urbanist';
+}
+.table-view {
+    -fx-background-radius: 12;
+    -fx-background-color: white;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}

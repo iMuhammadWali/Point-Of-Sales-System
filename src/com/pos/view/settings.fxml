@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.SettingsController">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox spacing="0" style="-fx-background-color: #272848; -fx-pref-width: 250;">
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 30 20 40 20;">
+                <Rectangle width="60" height="60" arcWidth="15" arcHeight="15" fill="#54C1FB" />
+                <Label style="-fx-text-fill: white; -fx-padding: 15 0 0 0;" text="NexusPOS">
+                    <font>
+                        <Font name="SofiaPro-SemiBold" size="20.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Navigation Menu -->
+            <VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                <Button onAction="#showDashboard" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Dashboard">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showTransactions" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Transactions">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showProducts" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Products">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showCustomers" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Customers">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showReports" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Reports">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showSettings" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Settings">
+                    <font>
+                        <Font name="SofiaPro-Medium" size="14.0" />
+                    </font>
+                </Button>
+                <!-- ADD TO ALL OTHER FXML FILES IN THE SIDEBAR NAVIGATION -->
+
+                <!-- Spacer -->
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <!-- Logout -->
+                <Button onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #54C1FB; -fx-border-radius: 8; -fx-text-fill: #54C1FB; -fx-padding: 12;" text="Logout">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- Top Header Bar -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label fx:id="welcomeLabel" style="-fx-text-fill: #272848;" text="Welcome back, Hareem!">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="24.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="currentDateLabel" style="-fx-text-fill: #666;" text="Loading date...">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="14.0" />
+                        </font>
+                    </Label>
+                </VBox>
+
+                <VBox alignment="CENTER_RIGHT">
+                    <Label fx:id="currentTimeLabel" style="-fx-text-fill: #272848;" text="00:00:00">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="18.0" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <!-- Settings Content -->
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-text-fill: #272848;" text="System Settings">
+                            <font>
+                                <Font name="SofiaPro-SemiBold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Label style="-fx-text-fill: #666;" text="Configure your POS system preferences">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Label>
+                    </VBox>
+                </HBox>
+
+                <!-- Settings Tabs and Content -->
+                <HBox spacing="20" style="-fx-pref-height: 600;">
+                    <!-- Settings Navigation -->
+                    <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 250; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                        <Button fx:id="generalTab" onAction="#showGeneralSettings" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12; -fx-alignment: CENTER_LEFT;" text="General Settings">
+                            <font>
+                                <Font name="SofiaPro-Medium" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="themeTab" onAction="#showThemeSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: #272848; -fx-padding: 12; -fx-alignment: CENTER_LEFT;" text="Theme Settings">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="printerTab" onAction="#showPrinterSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: #272848; -fx-padding: 12; -fx-alignment: CENTER_LEFT;" text="Printer Settings">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="usersTab" onAction="#showUserSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: #272848; -fx-padding: 12; -fx-alignment: CENTER_LEFT;" text="User Management">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="backupTab" onAction="#showBackupSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: #272848; -fx-padding: 12; -fx-alignment: CENTER_LEFT;" text="Backup and Restore">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Button>
+                    </VBox>
+
+                    <!-- Settings Content Area -->
+                    <VBox fx:id="settingsContent" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 30; -fx-pref-width: 700; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" VBox.vgrow="ALWAYS">
+                        <!-- Content will be loaded dynamically -->
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

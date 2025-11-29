@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.LoginController">
+
+    <children>
+        <HBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- Left Side -->
+            <VBox alignment="CENTER" prefWidth="400" spacing="20" style="-fx-background-color: #272848; -fx-background-radius: 0 20 20 0;">
+                <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
+
+                <Rectangle arcHeight="20" arcWidth="20" fill="#54C1FB" height="80" width="80" />
+
+                <Label style="-fx-text-fill: white;" text="NexusPOS">
+                    <font><Font name="SofiaPro-Bold" size="34.0" /></font>
+                </Label>
+
+                <Label style="-fx-text-fill: #54C1FB;" text="Point of Sale System" wrapText="true">
+                    <font><Font name="Sofia Pro" size="18" /></font>
+                </Label>
+
+                <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 40 0 0 0;">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Rectangle arcHeight="5" arcWidth="5" fill="#54C1FB" height="8" width="25" />
+                        <Label style="-fx-text-fill: white;" text="Fast and Reliable Sales">
+                            <font><Font name="Sofia Pro" size="14" /></font>
+                        </Label>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Rectangle arcHeight="5" arcWidth="5" fill="#6D71F9" height="8" width="25" />
+                        <Label style="-fx-text-fill: white;" text="Real-time Inventory">
+                            <font><Font name="Sofia Pro" size="14" /></font>
+                        </Label>
+                    </HBox>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Rectangle arcHeight="5" arcWidth="5" fill="#54C1FB" height="8" width="25" />
+                        <Label style="-fx-text-fill: white;" text="Smart Analytics">
+                            <font><Font name="Sofia Pro" size="14" /></font>
+                        </Label>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- Right Side -->
+            <VBox alignment="CENTER" prefWidth="600" spacing="30">
+                <padding><Insets bottom="40" left="80" right="80" top="40" /></padding>
+
+                <VBox alignment="CENTER_LEFT" spacing="5">
+                    <Label style="-fx-text-fill: #272848;" text="Welcome Back">
+                        <font><Font name="Sofia Pro" size="34" /></font>
+                    </Label>
+                    <Label style="-fx-text-fill: #666;" text="Sign in to your account">
+                        <font><Font name="Sofia Pro" size="18" /></font>
+                    </Label>
+                </VBox>
+
+                <VBox spacing="25" style="-fx-padding: 20 0 0 0;">
+                    <VBox spacing="8">
+                        <Label style="-fx-text-fill: #272848;" text="Username">
+                            <font><Font name="Sofia Pro" size="14" /></font>
+                        </Label>
+                        <TextField fx:id="usernameField" promptText="Enter your username" styleClass="login-field" />
+                    </VBox>
+
+                    <VBox spacing="8">
+                        <Label style="-fx-text-fill: #272848;" text="Password">
+                            <font><Font name="Sofia Pro" size="14" /></font>
+                        </Label>
+                        <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="login-field" />
+                    </VBox>
+
+                    <Label fx:id="errorLabel" style="-fx-text-fill: #e74c3c; -fx-padding: 5 0 0 0;" visible="false" wrapText="true">
+                        <font><Font name="Sofia Pro" size="12" /></font>
+                    </Label>
+
+                    <HBox alignment="CENTER_LEFT" spacing="100">
+                        <CheckBox fx:id="rememberMeCheckbox" style="-fx-text-fill: #666;" text="Remember me">
+                            <font><Font name="Sofia Pro" size="12" /></font>
+                        </CheckBox>
+
+                        <Hyperlink fx:id="forgotPasswordLink" onAction="#handleForgotPassword" style="-fx-text-fill: #6D71F9;" text="Forgot Password?">
+                            <font><Font name="Sofia Pro" size="12" /></font>
+                        </Hyperlink>
+                    </HBox>
+
+                    <Button fx:id="loginButton" onAction="#handleLogin" styleClass="login-button" text="Sign In">
+                        <font><Font name="Sofia Pro" size="14" /></font>
+                    </Button>
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="5" style="-fx-padding: 40 0 0 0;">
+                    <Label style="-fx-text-fill: #999;" text="© 2024 NexusPOS. All rights reserved.">
+                        <font><Font name="Sofia Pro" size="12" /></font>
+                    </Label>
+                    <Label style="-fx-text-fill: #ccc;" text="v1.0.0">
+                        <font><Font name="Sofia Pro" size="10" /></font>
+                    </Label>
+                </VBox>
+            </VBox>
+        </HBox>
+    </children>
+</StackPane>

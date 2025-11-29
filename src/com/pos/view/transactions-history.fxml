@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.TransactionHistoryController">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox spacing="0" style="-fx-background-color: #272848; -fx-pref-width: 250;">
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 30 20 40 20;">
+                <Rectangle arcHeight="15" arcWidth="15" fill="#54C1FB" height="60" width="60" />
+                <Label style="-fx-text-fill: white; -fx-padding: 15 0 0 0;" text="NexusPOS">
+                    <font>
+                        <Font name="SofiaPro-SemiBold" size="20.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Navigation Menu -->
+            <VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                <Button onAction="#showDashboard" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Dashboard">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showTransactionHome" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Transactions">
+                    <font>
+                        <Font name="SofiaPro-Medium" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showProducts" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Products">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showCustomers" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Customers">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showReports" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Reports">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Settings">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+
+
+                <!-- Spacer -->
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <!-- Logout -->
+                <Button onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #54C1FB; -fx-border-radius: 8; -fx-text-fill: #54C1FB; -fx-padding: 12;" text="Logout">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- Top Header Bar -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label fx:id="welcomeLabel" style="-fx-text-fill: #272848;" text="Welcome back, Hareem!">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="24.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="currentDateLabel" style="-fx-text-fill: #666;">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="14.0" />
+                        </font>
+                    </Label>
+                </VBox>
+
+                <VBox alignment="CENTER_RIGHT">
+                    <Label fx:id="currentTimeLabel" style="-fx-text-fill: #272848;" text="00:00:00">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="18.0" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <!-- Transaction History Content -->
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Search and Filters -->
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <TextField fx:id="searchField" promptText="Search by Transaction ID, Cashier, or Amount..." style="-fx-pref-width: 400;" styleClass="login-field" />
+                    <Button onAction="#handleSearch" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12 20;" text="Search">
+                        <font>
+                            <Font name="SofiaPro-Medium" size="14.0" />
+                        </font>
+                    </Button>
+                    <Button onAction="#showCreateTransaction" style="-fx-background-color: #54C1FB; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12 20;" text="New Transaction">
+                        <font>
+                            <Font name="SofiaPro-Medium" size="14.0" />
+                        </font>
+                    </Button>
+                </HBox>
+
+                <!-- Quick Filters -->
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label style="-fx-text-fill: #666;" text="Filter by:">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="14.0" />
+                        </font>
+                    </Label>
+                    <Button style="-fx-background-color: #F8F9FA; -fx-background-radius: 20; -fx-text-fill: #272848; -fx-padding: 8 16;" text="Today">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Button>
+                    <Button style="-fx-background-color: #F8F9FA; -fx-background-radius: 20; -fx-text-fill: #272848; -fx-padding: 8 16;" text="This Week">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Button>
+                    <Button style="-fx-background-color: #F8F9FA; -fx-background-radius: 20; -fx-text-fill: #272848; -fx-padding: 8 16;" text="This Month">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Button>
+                    <Button style="-fx-background-color: #F8F9FA; -fx-background-radius: 20; -fx-text-fill: #272848; -fx-padding: 8 16;" text="Completed">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Button>
+                    <Button style="-fx-background-color: #F8F9FA; -fx-background-radius: 20; -fx-text-fill: #272848; -fx-padding: 8 16;" text="Cancelled">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Button>
+                </HBox>
+
+                <!-- Transactions Table -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label style="-fx-text-fill: #272848;" text="Transaction History">
+                            <font>
+                                <Font name="SofiaPro-SemiBold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label style="-fx-text-fill: #666;" text="All recorded transactions">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+
+                    <TableView fx:id="transactionsTable" style="-fx-padding: 20 0 0 0;">
+                        <columns>
+                            <TableColumn fx:id="colTransactionId" prefWidth="120" text="Transaction ID" />
+                            <TableColumn fx:id="colDateTime" prefWidth="150" text="Date and Time" />
+                            <TableColumn fx:id="colCashier" prefWidth="100" text="Cashier" />
+                            <TableColumn fx:id="colAmount" prefWidth="100" text="Amount" />
+                            <TableColumn fx:id="colStatus" prefWidth="100" text="Status" />
+                        </columns>
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT" style="-fx-padding: 15 0 0 0;">
+                        <Button onAction="#showTransactionDetails" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 20;" text="View Details">
+                            <font>
+                                <Font name="SofiaPro-Medium" size="14.0" />
+                            </font>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

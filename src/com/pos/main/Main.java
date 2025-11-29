@@ -2,49 +2,40 @@ package com.pos.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static Stage primaryStage;
-
     @Override
-    public void start(Stage stage) throws Exception {
-        primaryStage = stage;
-        showLoginScene();
-        stage.setTitle("POS System");
-        stage.show();
-    }
+    public void start(Stage primaryStage) throws Exception {
+        try {
+            // Load login FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/pos/view/login.fxml"));
+            Parent root = loader.load();
 
-    // Login Scene
-    public static void showLoginScene() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/login.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-    }
+            Scene scene = new Scene(root, 1000, 700);
 
-    // Transaction Scene
-    public static void showTransactionScene() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/transaction.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-    }
+            // Load CSS
+            try {
+                scene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
+            } catch (Exception e) {
+                System.out.println("CSS not found: " + e.getMessage());
+            }
 
-    // Dashboard Scene
-    public static void showDashboardScene() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/dashboard.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-    }
+            primaryStage.setTitle("NexusPOS - Login");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
 
-    public static void showCustomerScene() throws Exception {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/fxml/customer.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
+        } catch (Exception e) {
+            System.err.println("Error loading FXML: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

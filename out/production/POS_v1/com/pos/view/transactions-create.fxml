@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.CreateTransactionController">
+
+    <!-- LEFT SIDEBAR -->
+    <left>
+        <VBox spacing="0" style="-fx-background-color: #272848; -fx-pref-width: 250;">
+            <VBox alignment="CENTER" style="-fx-padding: 30 20 40 20;">
+                <Rectangle width="60" height="60" arcWidth="15" arcHeight="15" fill="#54C1FB"/>
+                <Label text="NexusPOS" style="-fx-text-fill: white; -fx-padding: 15 0 0 0;">
+                    <font><Font name="SofiaPro-SemiBold" size="20"/></font>
+                </Label>
+            </VBox>
+
+            <!-- SIDEBAR MENU -->
+            <VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                <Button text="Dashboard" onAction="#showDashboard" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12;"/>
+                <Button text="Transactions" onAction="#showTransactions" style="-fx-background-color: #6D71F9; -fx-text-fill: white; -fx-padding: 12;"/>
+                <Button text="Products" onAction="#showProducts" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12;"/>
+                <Button text="Customers" onAction="#showCustomers" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12;"/>
+                <Button text="Reports" onAction="#showReports" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12;"/>
+                <Button text="Settings" onAction="#showSettings" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-padding: 12;"/>
+                <VBox VBox.vgrow="ALWAYS"/>
+                <Button text="Logout" onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #54C1FB; -fx-border-radius: 8; -fx-text-fill: #54C1FB; -fx-padding: 12;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- HEADER TOP BAR -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label text="Welcome back, Hareem!" fx:id="welcomeLabel" style="-fx-text-fill: #272848;">
+                        <font><Font name="SofiaPro-SemiBold" size="24"/></font>
+                    </Label>
+                    <Label text="Loading date..." fx:id="currentDateLabel" style="-fx-text-fill: #666;">
+                        <font><Font name="SofiaPro-Regular" size="14"/></font>
+                    </Label>
+                </VBox>
+                <VBox alignment="CENTER_RIGHT">
+                    <Label text="00:00:00" fx:id="currentTimeLabel" style="-fx-text-fill: #272848;">
+                        <font><Font name="SofiaPro-SemiBold" size="18"/></font>
+                    </Label>
+                    <Label text="Logged in as: Hareem (Cashier)" style="-fx-text-fill: #666;">
+                        <font><Font name="SofiaPro-Regular" size="12"/></font>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <!-- SCROLLABLE MAIN AREA -->
+            <ScrollPane fitToWidth="true" fitToHeight="true" style="-fx-background-insets: 0;">
+                <HBox spacing="20" style="-fx-padding: 30;" HBox.hgrow="ALWAYS">
+
+                    <!-- LEFT: PRODUCT BROWSER -->
+                    <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-pref-width: 650; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10,0,0,2);" VBox.vgrow="ALWAYS">
+
+                        <!-- Search Bar -->
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <TextField fx:id="searchField" promptText="Search by name or barcode..." style="-fx-pref-width: 400;"/>
+                            <Button text="Search" onAction="#handleSearch" style="-fx-background-color: #6D71F9; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                        </HBox>
+
+                        <!-- Categories -->
+                        <VBox spacing="10">
+                            <Label text="Quick Categories" style="-fx-text-fill: #272848;">
+                                <font><Font name="SofiaPro-SemiBold" size="16"/></font>
+                            </Label>
+                            <HBox spacing="10">
+                                <Button text="All" style="-fx-background-color: #F8F9FA; -fx-background-radius: 20;"/>
+                                <Button text="Beverages" style="-fx-background-color: #F8F9FA; -fx-background-radius: 20;"/>
+                                <Button text="Snacks" style="-fx-background-color: #F8F9FA; -fx-background-radius: 20;"/>
+                                <Button text="Dairy" style="-fx-background-color: #F8F9FA; -fx-background-radius: 20;"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- PRODUCT GRID -->
+                        <FlowPane hgap="15" vgap="15">
+                            <!-- Coca Cola -->
+                            <VBox alignment="CENTER" onMouseClicked="#addSampleProduct" style="-fx-background-color: #F8F9FA; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150; -fx-cursor: hand;">
+                                <Rectangle width="60" height="60" fill="#54C1FB" arcWidth="10" arcHeight="10"/>
+                                <Label text="Coca Cola" style="-fx-text-fill: #272848; -fx-padding: 10 0 5 0;"/>
+                                <Label text="PKR 1.50" style="-fx-text-fill: #666;"/>
+                                <Label text="Stock: 25" style="-fx-text-fill: #999;"/>
+                            </VBox>
+
+                            <!-- Lays -->
+                            <VBox alignment="CENTER" onMouseClicked="#addSampleProduct" style="-fx-background-color: #F8F9FA; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150; -fx-cursor: hand;">
+                                <Rectangle width="60" height="60" fill="#6D71F9" arcWidth="10" arcHeight="10"/>
+                                <Label text="Lays Chips" style="-fx-text-fill: #272848; -fx-padding: 10 0 5 0;"/>
+                                <Label text="PKR 2.00" style="-fx-text-fill: #666;"/>
+                                <Label text="Stock: 18" style="-fx-text-fill: #999;"/>
+                            </VBox>
+
+                            <!-- Water -->
+                            <VBox alignment="CENTER" onMouseClicked="#addSampleProduct" style="-fx-background-color: #F8F9FA; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150; -fx-cursor: hand;">
+                                <Rectangle width="60" height="60" fill="#54C1FB" arcWidth="10" arcHeight="10"/>
+                                <Label text="Mineral Water" style="-fx-text-fill: #272848; -fx-padding: 10 0 5 0;"/>
+                                <Label text="PKR 0.75" style="-fx-text-fill: #666;"/>
+                                <Label text="Stock: 42" style="-fx-text-fill: #999;"/>
+                            </VBox>
+
+                            <!-- Juice -->
+                            <VBox alignment="CENTER" onMouseClicked="#addSampleProduct" style="-fx-background-color: #F8F9FA; -fx-background-radius: 12; -fx-padding: 20; -fx-pref-width: 150; -fx-cursor: hand;">
+                                <Rectangle width="60" height="60" fill="#6D71F9" arcWidth="10" arcHeight="10"/>
+                                <Label text="Juice Box" style="-fx-text-fill: #272848; -fx-padding: 10 0 5 0;"/>
+                                <Label text="PKR 1.20" style="-fx-text-fill: #666;"/>
+                                <Label text="Stock: 30" style="-fx-text-fill: #999;"/>
+                            </VBox>
+                        </FlowPane>
+                    </VBox>
+
+                    <!-- RIGHT: CART PANEL -->
+                    <VBox spacing="20" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-pref-width: 450; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1),10,0,0,2);" VBox.vgrow="ALWAYS">
+
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="Shopping Cart" style="-fx-text-fill: #272848;">
+                                <font><Font name="SofiaPro-SemiBold" size="18"/></font>
+                            </Label>
+                            <Button text="Clear All" onAction="#clearCart" style="-fx-background-color: transparent; -fx-text-fill: #e74c3c;"/>
+                        </HBox>
+
+                        <!-- LARGE CART TABLE -->
+                        <TableView fx:id="cartTable" VBox.vgrow="ALWAYS"
+                                   style="-fx-pref-height: 240px; -fx-max-height: 240px;">
+                            <columns>
+                                <TableColumn fx:id="colProductName" text="Product" prefWidth="150"/>
+                                <TableColumn fx:id="colPrice" text="Price" prefWidth="70"/>
+                                <TableColumn fx:id="colQuantity" text="Qty" prefWidth="60"/>
+                                <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="100"/>
+                            </columns>
+                        </TableView>
+
+                        <HBox alignment="CENTER_RIGHT">
+                            <Button text="Remove Selected" onAction="#removeFromCart" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 8 16;"/>
+                        </HBox>
+
+                        <!-- DISCOUNT INPUT FIELDS -->
+                        <VBox spacing="10" style="-fx-background-color: #F8F9FA; -fx-padding: 15; -fx-background-radius: 8;">
+                            <Label text="Apply Discounts" style="-fx-text-fill: #272848; -fx-font-weight: bold;">
+                                <font><Font name="SofiaPro-SemiBold" size="14"/></font>
+                            </Label>
+
+                            <VBox spacing="5">
+                                <Label text="Discount (amount or %):" style="-fx-text-fill: #666;"/>
+                                <TextField fx:id="discountField" promptText="e.g., 10 or 5%"/>
+                            </VBox>
+
+                            <VBox spacing="5">
+                                <Label text="Loyalty Points:" style="-fx-text-fill: #666;"/>
+                                <TextField fx:id="loyaltyPointsField" promptText="Enter loyalty points"/>
+                            </VBox>
+                        </VBox>
+
+                        <!-- TOTALS BOX - FIXED: Added totalLabel -->
+                        <VBox spacing="10" style="-fx-background-color: #F8F9FA; -fx-padding: 15; -fx-background-radius: 8;">
+                            <HBox>
+                                <Label text="Subtotal:" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="subtotalLabel" text="PKR 0.00"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Tax (16%):" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="taxLabel" text="PKR 0.00"/>
+                            </HBox>
+                            <!-- ADDED TOTAL ROW -->
+                            <HBox>
+                                <Label text="Total:" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="totalLabel" text="PKR 0.00" style="-fx-text-fill: #6D71F9;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Discount:" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="discountAmountLabel" text="-PKR 0.00" style="-fx-text-fill: #e74c3c;"/>
+                            </HBox>
+                            <HBox>
+                                <Label text="Loyalty Discount:" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="loyaltyDiscountLabel" text="-PKR 0.00" style="-fx-text-fill: #e74c3c;"/>
+                            </HBox>
+                            <Separator/>
+                            <HBox>
+                                <Label text="Final Total:" HBox.hgrow="ALWAYS"/>
+                                <Label fx:id="finalTotalLabel" text="PKR 0.00" style="-fx-text-fill: #6D71F9; -fx-font-size: 16;"/>
+                            </HBox>
+                        </VBox>
+
+                        <!-- ACTION BUTTONS -->
+                        <HBox alignment="CENTER" spacing="10">
+                            <Button text="Refund" onAction="#handleRefund" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 12 20;"/>
+                            <Button text="Complete Transaction" onAction="#completeTransaction" style="-fx-background-color: #6D71F9; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 12 30;"/>
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>
