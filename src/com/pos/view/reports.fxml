@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.chart.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.ReportsController">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox spacing="0" style="-fx-background-color: #272848; -fx-pref-width: 250;">
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 30 20 40 20;">
+                <Rectangle width="60" height="60" arcWidth="15" arcHeight="15" fill="#54C1FB" />
+                <Label style="-fx-text-fill: white; -fx-padding: 15 0 0 0;" text="NexusPOS">
+                    <font>
+                        <Font name="SofiaPro-SemiBold" size="20.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Navigation Menu -->
+            <VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                <Button onAction="#showDashboard" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Dashboard">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showTransactions" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Transactions">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showProducts" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Products">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showCustomers" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Customers">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showReports" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Reports">
+                    <font>
+                        <Font name="SofiaPro-Medium" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Settings">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+
+                <!-- Spacer -->
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <!-- Logout -->
+<!--                <Button onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #54C1FB; -fx-border-radius: 8; -fx-text-fill: #54C1FB; -fx-padding: 12;" text="Logout">-->
+<!--                    <font>-->
+<!--                        <Font name="SofiaPro-Regular" size="14.0" />-->
+<!--                    </font>-->
+<!--                </Button>-->
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- Top Header Bar -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label fx:id="welcomeLabel" style="-fx-text-fill: #272848;" text="Welcome back, Hareem!">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="24.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="currentDateLabel" style="-fx-text-fill: #666;" text="Loading date...">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="14.0" />
+                        </font>
+                    </Label>
+                </VBox>
+
+                <VBox alignment="CENTER_RIGHT">
+                    <Label fx:id="currentTimeLabel" style="-fx-text-fill: #272848;" text="00:00:00">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="18.0" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <!-- Reports Content -->
+            <ScrollPane fitToWidth="true" style="-fx-background: #EFF0F8; -fx-border: none; -fx-padding: 0;">
+                <VBox spacing="30" style="-fx-padding: 30; -fx-background: #EFF0F8;">
+
+                    <!-- PAGE HEADER -->
+                    <VBox spacing="5" style="-fx-padding: 0 0 20 0;">
+                        <Label text="Reports and Analytics" style="-fx-text-fill: #333333; -fx-font-size: 28px; -fx-font-weight: bold;">
+                            <font>
+                                <Font name="SofiaPro-SemiBold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Label text="View sales performance, cashier activity, tax reports, and product insights."
+                               style="-fx-text-fill: #666666; -fx-font-size: 14px;">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <!-- SECTION 1: SALES REPORTS -->
+                    <TitledPane text="Sales Reports" animated="true" style="-fx-border-radius: 12; -fx-background-radius: 12;">
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <!-- A. Filters Row -->
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <DatePicker fx:id="salesStartDate" promptText="Start Date" style="-fx-pref-width: 150;"/>
+                                <DatePicker fx:id="salesEndDate" promptText="End Date" style="-fx-pref-width: 150;"/>
+<!--                                <ToggleGroup fx:id="reportTypeGroup">-->
+<!--                                    <HBox spacing="5">-->
+<!--                                        <ToggleButton text="Daily" toggleGroup="$reportTypeGroup"/>-->
+<!--                                        <ToggleButton text="Weekly" toggleGroup="$reportTypeGroup"/>-->
+<!--                                        <ToggleButton text="Monthly" toggleGroup="$reportTypeGroup" selected="true"/>-->
+<!--                                    </HBox>-->
+<!--                                </ToggleGroup>-->
+                                <Button fx:id="generateSalesReport" onAction="#generateSalesReport" text="Generate" style="-fx-background-color: #6D71F9; -fx-text-fill: white; -fx-pref-width: 120;"/>
+                            </HBox>
+
+                            <!-- B. Metrics Row -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <!-- Total Sales Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Total Sales" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="totalSalesLabel" text="PKR 83,420" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Total Orders Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Total Orders" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="totalOrdersLabel" text="143" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Avg Order Value Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Avg. Order Value" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="avgOrderValueLabel" text="PKR 584" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Peak Hour Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Peak Hour" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="peakHourLabel" text="2 PM – 3 PM" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- C. Chart Area -->
+                            <VBox spacing="10">
+                                <Label text="Sales Over Time" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <LineChart fx:id="salesChart" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-height: 350; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <xAxis>
+                                        <CategoryAxis label="Date" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Sales (PKR)" />
+                                    </yAxis>
+                                </LineChart>
+                            </VBox>
+
+                            <!-- D. Sales Table -->
+                            <VBox spacing="10">
+                                <Label text="Sales Details" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <TableView fx:id="salesTable" style="-fx-background-color: white; -fx-background-radius: 12; -fx-pref-height: 300; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <columns>
+                                        <TableColumn fx:id="salesDateCol" text="Date" prefWidth="120"/>
+                                        <TableColumn fx:id="salesOrdersCol" text="Orders" prefWidth="80"/>
+                                        <TableColumn fx:id="salesAmountCol" text="Sales Amount" prefWidth="120"/>
+                                        <TableColumn fx:id="salesDiscountsCol" text="Discounts" prefWidth="100"/>
+                                        <TableColumn fx:id="salesNetTotalCol" text="Net Total" prefWidth="120"/>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+                        </VBox>
+                    </TitledPane>
+
+                    <!-- SECTION 2: CASHIER-WISE REPORTS -->
+                    <TitledPane text="Cashier-wise Reports" animated="true" style="-fx-border-radius: 12; -fx-background-radius: 12;">
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <!-- A. Filters Row -->
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <ComboBox fx:id="cashierFilter" promptText="Select Cashier" style="-fx-pref-width: 200;"/>
+                                <DatePicker fx:id="cashierStartDate" promptText="Start Date" style="-fx-pref-width: 150;"/>
+                                <DatePicker fx:id="cashierEndDate" promptText="End Date" style="-fx-pref-width: 150;"/>
+                                <Button fx:id="generateCashierReport" onAction="#generateCashierReport" text="Generate" style="-fx-background-color: #6D71F9; -fx-text-fill: white; -fx-pref-width: 120;"/>
+                            </HBox>
+
+                            <!-- B. Metrics Row -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <!-- Cashier Sales Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Total Sales" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="cashierSalesLabel" text="PKR 45,280" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Cashier Orders Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Total Orders" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="cashierOrdersLabel" text="78" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Cashier Avg Value Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Avg. Order Value" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="cashierAvgValueLabel" text="PKR 581" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- C. Chart Area -->
+                            <VBox spacing="10">
+                                <Label text="Cashier Performance" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <BarChart fx:id="cashierChart" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-height: 300; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <xAxis>
+                                        <CategoryAxis label="Cashier" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Sales (PKR)" />
+                                    </yAxis>
+                                </BarChart>
+                            </VBox>
+
+                            <!-- D. Cashier Table -->
+                            <VBox spacing="10">
+                                <Label text="Cashier Details" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <TableView fx:id="cashierTable" style="-fx-background-color: white; -fx-background-radius: 12; -fx-pref-height: 250; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <columns>
+                                        <TableColumn fx:id="cashierNameCol" text="Cashier Name" prefWidth="150"/>
+                                        <TableColumn fx:id="cashierOrdersCol" text="Orders" prefWidth="80"/>
+                                        <TableColumn fx:id="cashierSalesCol" text="Total Sales" prefWidth="120"/>
+                                        <TableColumn fx:id="cashierRefundsCol" text="Refunds" prefWidth="80"/>
+                                        <TableColumn fx:id="cashierShiftCol" text="Shift Duration" prefWidth="120"/>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+                        </VBox>
+                    </TitledPane>
+
+                    <!-- SECTION 3: TAX & FINANCIAL REPORTS -->
+                    <TitledPane text="Tax and Financial Reports" animated="true" style="-fx-border-radius: 12; -fx-background-radius: 12;">
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <!-- A. Metrics Row -->
+                            <HBox spacing="15" alignment="CENTER_LEFT">
+                                <!-- Gross Revenue Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Gross Revenue" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="grossRevenueLabel" text="PKR 95,800" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Net Revenue Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Net Revenue" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="netRevenueLabel" text="PKR 83,420" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Tax Collected Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Tax Collected" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="taxCollectedLabel" text="PKR 12,380" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                                <!-- Discounts Card -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 200; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Discounts Applied" style="-fx-text-fill: #777777; -fx-font-size: 14px;"/>
+                                    <Label fx:id="discountsLabel" text="PKR 2,450" style="-fx-text-fill: #333333; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- B. Pie Chart -->
+                            <VBox spacing="10">
+                                <Label text="Tax Breakdown" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <PieChart fx:id="taxPieChart" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-height: 300; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);"/>
+                            </VBox>
+                        </VBox>
+                    </TitledPane>
+
+                    <!-- SECTION 4: PRODUCT PERFORMANCE -->
+                    <TitledPane text="Product Performance" animated="true" style="-fx-border-radius: 12; -fx-background-radius: 12;">
+                        <VBox spacing="20" style="-fx-padding: 20;">
+                            <!-- A. Top & Bottom Products -->
+                            <HBox spacing="20" alignment="TOP_LEFT">
+                                <!-- Top Products -->
+                                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 350; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Top 10 Fast-Moving Products" style="-fx-text-fill: #333333; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                                    <ListView fx:id="topProductsList" style="-fx-pref-height: 200;"/>
+                                </VBox>
+                                <!-- Slow Products -->
+                                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-width: 350; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <Label text="Slow-Moving Products" style="-fx-text-fill: #333333; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                                    <ListView fx:id="slowProductsList" style="-fx-pref-height: 200;"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- B. Comparison Chart -->
+                            <VBox spacing="10">
+                                <Label text="Product Sales Comparison" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <BarChart fx:id="productChart" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-pref-height: 300; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <xAxis>
+                                        <CategoryAxis label="Products" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis label="Quantity Sold" />
+                                    </yAxis>
+                                </BarChart>
+                            </VBox>
+
+                            <!-- C. Product Table -->
+                            <VBox spacing="10">
+                                <Label text="Product Performance Details" style="-fx-text-fill: #333333; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+                                <TableView fx:id="productTable" style="-fx-background-color: white; -fx-background-radius: 12; -fx-pref-height: 250; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 6, 0, 0, 2);">
+                                    <columns>
+                                        <TableColumn fx:id="productNameCol" text="Product Name" prefWidth="200"/>
+                                        <TableColumn fx:id="productQuantityCol" text="Quantity Sold" prefWidth="100"/>
+                                        <TableColumn fx:id="productRevenueCol" text="Revenue" prefWidth="120"/>
+                                        <TableColumn fx:id="productCategoryCol" text="Category" prefWidth="120"/>
+                                    </columns>
+                                </TableView>
+                            </VBox>
+                        </VBox>
+                    </TitledPane>
+                </VBox>
+            </ScrollPane>
+        </VBox>
+    </center>
+</BorderPane>

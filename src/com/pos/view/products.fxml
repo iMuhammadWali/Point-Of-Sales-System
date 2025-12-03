@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pos.controller.ProductsController">
+
+    <!-- Left Sidebar -->
+    <left>
+        <VBox spacing="0" style="-fx-background-color: #272848; -fx-pref-width: 250;">
+            <!-- Logo -->
+            <VBox alignment="CENTER" style="-fx-padding: 30 20 40 20;">
+                <Rectangle arcHeight="15" arcWidth="15" fill="#54C1FB" height="60" width="60" />
+                <Label style="-fx-text-fill: white; -fx-padding: 15 0 0 0;" text="NexusPOS">
+                    <font>
+                        <Font name="SofiaPro-SemiBold" size="20.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+            <!-- Navigation Menu -->
+            <VBox spacing="5" style="-fx-padding: 0 20 20 20;">
+                <Button onAction="#showDashboard" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Dashboard">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showTransactions" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Transactions">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showProducts" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Products">
+                    <font>
+                        <Font name="SofiaPro-Medium" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showCustomers" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Customers">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showReports" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Reports">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+                <Button onAction="#showSettings" style="-fx-background-color: transparent; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12;" text="Settings">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+
+
+                <!-- Spacer -->
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <!-- Logout -->
+                <Button onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #54C1FB; -fx-border-radius: 8; -fx-text-fill: #54C1FB; -fx-padding: 12;" text="Logout">
+                    <font>
+                        <Font name="SofiaPro-Regular" size="14.0" />
+                    </font>
+                </Button>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox spacing="0" style="-fx-background-color: #EFF0F8;">
+
+            <!-- Top Header Bar -->
+            <HBox alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 20 30; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                    <Label fx:id="welcomeLabel" style="-fx-text-fill: #272848;" text="Welcome back, Hareem!">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="24.0" />
+                        </font>
+                    </Label>
+                    <Label fx:id="currentDateLabel" style="-fx-text-fill: #666;">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="14.0" />
+                        </font>
+                    </Label>
+                </VBox>
+
+                <VBox alignment="CENTER_RIGHT">
+                    <Label fx:id="currentTimeLabel" style="-fx-text-fill: #272848;" text="00:00:00">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="18.0" />
+                        </font>
+                    </Label>
+                    <Label style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
+                        <font>
+                            <Font name="SofiaPro-Regular" size="12.0" />
+                        </font>
+                    </Label>
+                </VBox>
+            </HBox>
+
+            <!-- Products Content -->
+            <VBox spacing="20" style="-fx-padding: 30;">
+
+                <!-- Header and Action Buttons -->
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-text-fill: #272848;" text="Product Management">
+                            <font>
+                                <Font name="SofiaPro-SemiBold" size="28.0" />
+                            </font>
+                        </Label>
+                        <Label style="-fx-text-fill: #666;" text="Manage your inventory and product catalog">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Label>
+                    </VBox>
+
+                    <Button onAction="#handleAddProduct" style="-fx-background-color: #6D71F9; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12 20;" text="Add Product">
+                        <font>
+                            <Font name="SofiaPro-Medium" size="14.0" />
+                        </font>
+                    </Button>
+                </HBox>
+
+                <!-- Search and Filters -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                    <Label style="-fx-text-fill: #272848; -fx-padding: 0 0 15 0;" text="Search and Filter">
+                        <font>
+                            <Font name="SofiaPro-SemiBold" size="16.0" />
+                        </font>
+                    </Label>
+
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <!-- Search Field -->
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #666;" text="Search Products">
+                                <font>
+                                    <Font name="SofiaPro-Regular" size="12.0" />
+                                </font>
+                            </Label>
+                            <TextField fx:id="searchField" promptText="Search by name or product ID..." style="-fx-pref-width: 300;" styleClass="login-field" />
+                        </VBox>
+
+                        <!-- Category Filter -->
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #666;" text="Category">
+                                <font>
+                                    <Font name="SofiaPro-Regular" size="12.0" />
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="categoryFilter" style="-fx-pref-width: 150;" styleClass="login-field" />
+                        </VBox>
+
+                        <!-- Stock Filter -->
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: #666;" text="Stock Status">
+                                <font>
+                                    <Font name="SofiaPro-Regular" size="12.0" />
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="stockFilter" style="-fx-pref-width: 150;" styleClass="login-field" />
+                        </VBox>
+
+                        <!-- Search Button -->
+                        <VBox spacing="5">
+                            <Label style="-fx-text-fill: transparent;" text="Search">
+                                <font>
+                                    <Font name="SofiaPro-Regular" size="12.0" />
+                                </font>
+                            </Label>
+                            <Button onAction="#handleSearch" style="-fx-background-color: #54C1FB; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 12 20;" text="Search">
+                                <font>
+                                    <Font name="SofiaPro-Medium" size="14.0" />
+                                </font>
+                            </Button>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Products Table -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);">
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15 0;">
+                        <Label style="-fx-text-fill: #272848;" text="Products">
+                            <font>
+                                <Font name="SofiaPro-SemiBold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label style="-fx-text-fill: #666;" text="All products in inventory">
+                            <font>
+                                <Font name="SofiaPro-Regular" size="14.0" />
+                            </font>
+                        </Label>
+                    </HBox>
+
+                    <TableView fx:id="productsTable" style="-fx-max-height: 450; -fx-min-width: 700">
+                        <columns>
+                            <TableColumn fx:id="colProductId" prefWidth="120" text="Product ID" />
+                            <TableColumn fx:id="colName" prefWidth="200" text="Name" />
+                            <TableColumn fx:id="colCategory" prefWidth="120" text="Category" />
+                            <TableColumn fx:id="colPrice" prefWidth="100" text="Price (PKR)" />
+                            <TableColumn fx:id="colQuantity" prefWidth="80" text="Quantity" />
+                            <TableColumn fx:id="colStatus" prefWidth="100" text="Status" />
+                        </columns>
+                    </TableView>
+
+                    <!-- Action Buttons -->
+                    <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 15 0 0 0;">
+                        <Button fx:id="editButton" disable="true" onAction="#handleEditProduct" style="-fx-background-color: #54C1FB; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 20;" text="Edit Product">
+                            <font>
+                                <Font name="SofiaPro-Medium" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="deleteButton" disable="true" onAction="#handleDeleteProduct" style="-fx-background-color: #e74c3c; -fx-background-radius: 8; -fx-text-fill: white; -fx-padding: 10 20;" text="Delete Product">
+                            <font>
+                                <Font name="SofiaPro-Medium" size="14.0" />
+                            </font>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
