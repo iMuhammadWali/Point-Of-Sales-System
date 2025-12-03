@@ -92,7 +92,7 @@
                             <Font name="SofiaPro-SemiBold" size="18.0" />
                         </font>
                     </Label>
-                    <Label style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
+                    <Label fx:id="userInfo" style="-fx-text-fill: #666;" text="Logged in as: Hareem (Cashier)">
                         <font>
                             <Font name="SofiaPro-Regular" size="12.0" />
                         </font>

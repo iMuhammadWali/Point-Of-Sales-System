@@ -127,8 +127,57 @@ public class SalesTransactionDBManager {
             dbConnection.setAutoCommitToValue(true);
         }
     }
+
     public List<SalesTransaction> getAllSalesTransactions() throws SQLException {
         String sql = "SELECT * FROM salesTransactions ORDER BY createdAt DESC";
+        List<SalesTransaction> transactions = new ArrayList<>();
+
+        PreparedStatement p = null;
+        ResultSet rs = null;
+
+        try {
+            p = dbConnection.getPreparedStatement(sql);
+            rs = p.executeQuery();
+
+            while (rs.next()) {
+                SalesTransaction transaction = new SalesTransaction();
+                transaction.setSaleID(rs.getInt("saleID"));
+                transaction.setCustomerID(rs.getInt("customerID"));
+                transaction.setCashierID(rs.getInt("cashierID"));
+                transaction.setShiftID(rs.getInt("shiftID"));
+                transaction.setTotalAmount(rs.getBigDecimal("totalAmount"));
+                transaction.setTaxAmount(rs.getBigDecimal("taxAmount"));
+                transaction.setDiscountAmount(rs.getBigDecimal("discountAmount"));
+                transaction.setFinalAmount(rs.getBigDecimal("finalAmount"));
+                transaction.setStatus(rs.getString("status"));
+                transaction.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+
+                // Load sale items if needed (optional)
+                // transaction.setItems(getSaleItemsForTransaction(transaction.getSaleID()));
+
+                // Load payments if needed (optional)
+                // transaction.setPayments(getPaymentsForTransaction(transaction.getSaleID()));
+
+                transactions.add(transaction);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error fetching sales transactions", e);
+        } finally {
+            dbConnection.closeResultSet(rs);
+            dbConnection.closeStatement(p);
+        }
+
+        return transactions;
+    }
+
+
+    public List<SalesTransaction> getSalesTransactionsOfToday() throws SQLException {
+        String sql =
+                "SELECT * " +
+                        "FROM salesTransactions " +
+                        "WHERE date(createdAt / 1000, 'unixepoch', 'localtime') = date('now','localtime') " +
+                        "ORDER BY createdAt DESC";
+
         List<SalesTransaction> transactions = new ArrayList<>();
 
         PreparedStatement p = null;

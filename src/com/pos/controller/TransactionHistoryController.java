@@ -100,7 +100,6 @@ public class TransactionHistoryController implements Initializable {
                 transactions.add(displayTransaction);
             }
 
-            // Refresh table
             transactionsTable.refresh();
 
         } catch (Exception e) {
@@ -120,14 +119,12 @@ public class TransactionHistoryController implements Initializable {
                 java.sql.Timestamp.valueOf(salesTransaction.getCreatedAt())
         );
 
-        // Get cashier name (Using the current user's full name here)
+        // Get cashier name (Using the current user's full name here) ((THat iniital idea was wrong..)
         String cashier = getCashierName(salesTransaction.getCashierID());
 
-        // Format amount
         DecimalFormat df = new DecimalFormat("#,##0.00");
         String amount = "PKR " + df.format(salesTransaction.getFinalAmount().doubleValue());
 
-        // Get status
         String status = salesTransaction.getStatus();
 
         return new Transaction(transactionId, dateTime, cashier, amount, status);

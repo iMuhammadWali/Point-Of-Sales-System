@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 
 // TODO: I need to change the product to my own model.
+// TODO: I need to display all the products from the database in the products table and then use the edit button to change its stock.
+
 public class ProductsController implements Initializable {
 
     @FXML private Label currentTimeLabel;

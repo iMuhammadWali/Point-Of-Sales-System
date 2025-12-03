@@ -1,9 +1,14 @@
 package com.pos.controller;
 
+import com.pos.database.DatabaseManager;
+import com.pos.database.managers.SalesTransactionDBManager;
+import com.pos.models.SalesTransaction;
 import com.pos.models.UserSession;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,11 +22,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
+
+// Give the top cards actual values. And since we are not handling categories, I have to replace that with something else.
 public class DashboardController implements Initializable {
 
     @FXML private Label currentTimeLabel;
@@ -38,6 +49,11 @@ public class DashboardController implements Initializable {
     @FXML private TableColumn<Transaction, String> colAmount;
     @FXML private TableColumn<Transaction, String> colCashier;
     @FXML private TableColumn<Transaction, String> colStatus;
+    @FXML private Label userInfo;
+
+    private ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+    private SalesTransactionDBManager transactionManager;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,7 +61,10 @@ public class DashboardController implements Initializable {
         setupWelcomeMessage();
         setupDashboardCards();
         setupRecentTransactionsTable();
+
+        transactionManager = DatabaseManager.getInstance().getSalesTransactionManager();
         loadDummyData();
+        loadTransactionsFromDB();
     }
 
     private void setupClock() {
@@ -64,9 +83,8 @@ public class DashboardController implements Initializable {
         String[] greetings = {"Good morning", "Good afternoon", "Good evening"};
         int hour = java.time.LocalTime.now().getHour();
         String greeting = hour < 12 ? greetings[0] : hour < 18 ? greetings[1] : greetings[2];
-
-
         welcomeLabel.setText(greeting + " " + UserSession.getInstance().getFullName());
+        userInfo.setText("Logged in as " + UserSession.getInstance().getFullName() + " (" + UserSession.getInstance().getRole().toLowerCase() + ")");
     }
 
     private void setupDashboardCards() {
@@ -79,30 +97,76 @@ public class DashboardController implements Initializable {
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         colCashier.setCellValueFactory(new PropertyValueFactory<>("cashier"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        recentTransactionsTable.setItems(transactions);
     }
 
-    private void loadDummyData() {
-        // Dashboard Cards Data
-        todaySalesLabel.setText("PKR 18,320");
-        transactionsCountLabel.setText("32 Orders");
-        topCategoryLabel.setText("Beverages");
-        lowStockLabel.setText("5 Items");
 
-        // Recent Transactions Data
-        recentTransactionsTable.getItems().addAll(
-                new Transaction("TXN-001", "14:30", "PKR 1,250", "Hareem", "Paid"),
-                new Transaction("TXN-002", "14:15", "PKR 850", "Ali", "Paid"),
-                new Transaction("TXN-003", "13:45", "PKR 2,100", "Hareem", "Paid"),
-                new Transaction("TXN-004", "13:20", "PKR 450", "Sara", "Cancelled"),
-                new Transaction("TXN-005", "12:55", "PKR 1,750", "Hareem", "Paid")
+    private void loadTransactionsFromDB() {
+        try {
+            List<SalesTransaction> salesTransactions = transactionManager.getSalesTransactionsOfToday();
+            transactions.clear(); // CLear the table (Because when we are refreshing, we call the initialize function again so we need this)
+            BigDecimal todaysSalesProfit =  BigDecimal.ZERO;
+            Integer todaysSalesCount = salesTransactions.size();
+            for (SalesTransaction salesTransaction : salesTransactions) {
+                Transaction displayTransaction = convertToDisplayTransaction(salesTransaction);
+                transactions.add(displayTransaction);
+                todaysSalesProfit = todaysSalesProfit.add(salesTransaction.getFinalAmount());
+            }
+            recentTransactionsTable.refresh();
+
+            todaySalesLabel.setText("PKR " + todaysSalesProfit);
+            transactionsCountLabel.setText(todaysSalesCount + " Orders");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Database Error", "Failed to load transactions: " + e.getMessage());
+        }
+    }
+
+    private Transaction convertToDisplayTransaction(SalesTransaction salesTransaction) {
+
+        // I have no clue but this is some real world formatting that AI did.
+        String transactionId = "TXN-" + String.format("%05d", salesTransaction.getSaleID());
+
+        // Format date and time
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateTime = dateFormat.format(
+                java.sql.Timestamp.valueOf(salesTransaction.getCreatedAt())
         );
+
+        // Get cashier name (Using the current user's full name here) ((THat iniital idea was wrong..)
+        String cashier = getCashierName(salesTransaction.getCashierID());
+
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        String amount = "PKR " + df.format(salesTransaction.getFinalAmount().doubleValue());
+
+        String status = salesTransaction.getStatus();
+
+        return new Transaction(transactionId, dateTime, cashier, amount, status);
+    }
+
+    private String getCashierName(int cashierId) {
+        try {
+            // USe the Database manager.
+            return DatabaseManager.getInstance().getUserManager().getUserDetailsFromID(cashierId).getFullName();
+
+        } catch (Exception e) {
+            return "Cashier #" + cashierId;
+        }
+    }
+
+
+    // Since I already have transactions
+    private void loadDummyData() {
+        topCategoryLabel.setText("TBA");
+        lowStockLabel.setText("TBA");
     }
 
     // Navigation methods
-// Navigation methods - ALL CONSISTENT NOW!
     @FXML
     private void showDashboard() {
-        // Already on dashboard - maybe refresh data?
+        // Already on dashboard - maybe refresh data? And we can then refresh every page? As Transactions history can also be refreshed.
         refreshDashboardData();
     }
 
@@ -132,23 +196,22 @@ public class DashboardController implements Initializable {
     }
 
     // Will take a look at this later.
-//    @FXML
-//    private void logout() {
-//        try {
-//            Parent loginRoot = FXMLLoader.load(getClass().getResource("/com/pos/view/login.fxml"));
-//            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-//            Scene currentScene = stage.getScene();
-//            currentScene.setRoot(loginRoot);
-//            // If login has different CSS, add it here
-//            currentScene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
-//            stage.setMaximized(false); // Login shouldn't be maximized
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            showAlert("Logout Error", "Failed to logout: " + e.getMessage());
-//        }
-//    }
+    @FXML
+    private void logout() {
+        try {
+            Parent loginRoot = FXMLLoader.load(getClass().getResource("/com/pos/view/login.fxml"));
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            Scene currentScene = stage.getScene();
+            currentScene.setRoot(loginRoot);
+            // If login has different CSS, add it here
+            currentScene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
+            stage.setMaximized(false); // Login shouldn't be maximized
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Logout Error", "Failed to logout: " + e.getMessage());
+        }
+    }
 
-    // Helper method that WORKS for all navigation
     private void navigateTo(String fxmlPath) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
@@ -173,34 +236,34 @@ public class DashboardController implements Initializable {
         System.out.println("Refreshing dashboard data...");
     }
 
-    @FXML
-    private void logout() {
-        try {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Logout");
-            alert.setHeaderText("Confirm Logout");
-            alert.setContentText("Are you sure you want to logout?");
-
-            alert.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
-                    try {
-                        Parent root = FXMLLoader.load(getClass().getResource("/com/pos/view/login.fxml"));
-                        Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-                        Scene scene = new Scene(root, 1000, 700);
-                        scene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
-                        stage.setTitle("NexusPOS - Login");
-                        stage.setScene(scene);
-                        stage.setResizable(false);
-                        stage.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @FXML
+//    private void logout() {
+//        try {
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setTitle("Logout");
+//            alert.setHeaderText("Confirm Logout");
+//            alert.setContentText("Are you sure you want to logout?");
+//
+//            alert.showAndWait().ifPresent(response -> {
+//                if (response == ButtonType.OK) {
+//                    try {
+//                        Parent root = FXMLLoader.load(getClass().getResource("/com/pos/view/login.fxml"));
+//                        Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+//                        Scene scene = new Scene(root, 1000, 700);
+//                        scene.getStylesheets().add(getClass().getResource("/styles/login.css").toExternalForm());
+//                        stage.setTitle("NexusPOS - Login");
+//                        stage.setScene(scene);
+//                        stage.setResizable(false);
+//                        stage.show();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     private void showAlert(String title, String message) {
